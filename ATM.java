@@ -14,14 +14,47 @@ public class ATM
 
     public void deposite(float depamt)
     {
-        balance+=depamt;
-        System.out.println("the new balance is : "+balance);
+        try
+        {
+            if(depamt<0)
+            {
+                throw new IllegalArgumentException();
+            }
+            balance+=depamt;
+            System.out.println("the new balance is : "+balance);
+        }
+        catch(IllegalArgumentException e)
+        {
+            System.out.println("Error:invalid amount");
+            System.out.println("Error:"+e.getMessage());
+
+        }
+        finally
+        {
+        System.out.println("your transaction has ended succefully");
+        }
+       
     }
 
     public void withdraw(float withamt)
     {
+        try
+        {
+            if(withamt>balance)
+            {
+                throw new ArithmeticException("Error: not sufficient balance");
+            }
         balance-=withamt;
         System.out.println("the new balance is: "+balance);
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println("ERROR: insufficient balance"+e.getMessage());
+        }
+        finally
+        {
+        System.out.println("your transaction has ended succefully");
+        }
     }
 
     public static void main(String[] args)
@@ -32,7 +65,9 @@ public class ATM
         String cont="yes";
         while(cont.equalsIgnoreCase("yes"))
         {
-        System.out.println("1:Check Balance \n2:Deposite Money \n3:Withdraw Money ");
+        System.out.println("1:Check Balance");
+        System.out.println("2:Deposite Money");
+        System.out.println("3:Withdraw Money");
         int choice=sc.nextInt();
 
         switch(choice)
